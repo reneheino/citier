@@ -25,6 +25,3 @@ require 'citier/sql_adapters'
 
 #Require acts_as_citier hook
 require 'citier/acts_as_citier'
-
-# Methods that override ActiveRecord::Relation
-require 'citier/relation_methods'
