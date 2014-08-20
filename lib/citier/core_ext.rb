@@ -36,7 +36,7 @@ def create_citier_view(theclass)  #function for creating views for migrations
   self_read_table = theclass.table_name
   self_write_table = theclass::Writable.table_name
   parent_read_table = theclass.superclass.table_name
-  sql = "CREATE VIEW #{self_read_table} AS SELECT #{parent_read_table}.id, #{columns.join(',')} FROM #{parent_read_table}, #{self_write_table} WHERE #{parent_read_table}.id = #{self_write_table}.id" 
+  sql = "CREATE VIEW #{self_read_table} AS SELECT #{parent_read_table}.id, #{columns.map{|c| "`"+c+"`"}.join(',')} FROM #{parent_read_table}, #{self_write_table} WHERE #{parent_read_table}.id = #{self_write_table}.id" 
   citier_debug("Creating citier view -> #{sql}")
   theclass.connection.execute sql
 end
@@ -46,4 +46,8 @@ def drop_citier_view(theclass) #function for dropping views for migrations
   sql = "DROP VIEW #{self_read_table}"
   citier_debug("Dropping citier view -> #{sql}")
   theclass.connection.execute sql
+end
+
+def drop_view(name, options={})
+  p name
 end
